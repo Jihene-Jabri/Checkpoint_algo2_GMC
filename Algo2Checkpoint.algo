@@ -1,0 +1,169 @@
+ALGORITHM sum_distinct1_array
+VAR
+    set1: ARRAY_OF INTEGER[m];
+    set2: ARRAY_OF INTEGER[n];
+    m,n,i,j,sum1,sum2,sum:INTEGER;
+BEGIN
+    sum:=0
+    Write("type the length m of the set1")
+    read (m)
+    Write("type the length n of the set2")
+    read (n)
+    FOR i FROM 0 TO m-1 STEP 1  DO   
+     Write("type set1 elements"); 
+     read(set1[i]);
+    END_FOR
+    FOR j FROM 0 TO n-1 STEP 1  DO   
+     Write("type set2 elements"); 
+     read(set2[j]);
+    END_FOR
+    FOR i FROM 0 TO m-1 STEP 1 DO
+    j:=0
+    WHILE (set1[i]<>set2[j] AND j<set2.length) DO
+        j:=j+1
+    END_WHILE
+    sum1:=0
+    IF (set1[i]<>set2[j]) THEN
+        sum1:=sum1+set1[i]
+    END_IF
+    END_FOR
+    FOR j FROM 0 TO n-1 STEP 1 DO
+    i:=0
+    WHILE (set1[i]<>set2[j] AND i<set1.length) DO
+        i:=i+1
+    END_WHILE
+    sum2:=0
+    IF (set1[i]<>set2[j]) THEN
+        sum2:=sum2+set1[j]
+    END_IF
+    END_FOR
+    sum:=sum+(sum1+sum2)
+    Write("sum")
+END
+ALGORITHM sum_distinct2_Hashtable
+VAR
+    htab:HASH_TABLE<INTEGER,INTEGER>;
+    set1: ARRAY_OF INTEGER[m];
+    set2: ARRAY_OF INTEGER[n];
+    m,n,i,j,sum1,sum2,sum,count:INTEGER;
+BEGIN
+sum:=0
+    Write("type the length m of the set1")
+    read (m)
+    Write("type the length n of the set2")
+    read (n)
+    FOR i FROM 0 TO m-1 STEP 1  DO   
+     Write("type set1 elements"); 
+     read(set1[i]);
+    END_FOR
+    FOR j FROM 0 TO n-1 STEP 1  DO   
+     Write("type set2 elements"); 
+     read(set2[j]);
+FOR i FROM 0 TO m-1 STEP 1  DO
+    IF (htab.lookup(set1[i]=TRUE)) THEN
+        count1:=htab.get(set1[i]);
+        htab.insert(set1[i],count+1);
+    ELSE
+    htab.insert(set1[i],1);
+    END_IF
+END_FOR
+FOR j FROM 0 TO n-1 STEP 1  DO
+    IF (htab.lookup(set2[j]=TRUE)) THEN
+        count2:=htab.get(set2[j]);
+        htab.insert(set2[j],count+1);
+    ELSE
+    htab.insert(set2[j],1);
+    END_IF
+END_FOR
+FOR i FROM 0 TO m-1 STEP 1  DO
+    IF (htab.get(set1[i])=1) THEN
+        sum1=sum1+set[i]
+    END_IF
+END_FOR
+FOR j FROM 0 TO n-1 STEP 1  DO
+    IF (htab.get(set2[j])=1) THEN
+        sum2=sum2+set2[j]
+    END_IF
+END_FOR
+    sum:=sum+(sum1+sum2)
+    Write(sum)
+END
+
+
+ALGORITHM sum_overlapping1_array
+VAR
+    set1: ARRAY_OF INTEGER[m];
+    set2: ARRAY_OF INTEGER[n];
+    m,n,i,j,sum:INTEGER;
+BEGIN
+    sum:=0
+    Write("type the length m of the set1")
+    read (m)
+    Write("type the length n of the set2")
+    read (n)
+    FOR i FROM 0 TO m-1 STEP 1  DO   
+     Write("type set1 elements"); 
+     Read(set1[i]);
+    END_FOR
+    FOR j FROM 0 TO n-1 STEP 1  DO   
+     Write("type set2 elements"); 
+     Read(set2[j]);
+    END_FOR
+    FOR i FROM 0 TO m-1 STEP  1 DO
+       FOR j FROM 0 TO n-1 STEP 1  DO /*The elements in each set are unique or there are no duplicates within a set.*/
+           IF (set1[i]:=set2[j]) THEN
+             sum:= sum+set1[i]+set2[j] /*or sum:=sum+(set1[i]*2)*/
+           END_IF
+       END_FOR
+    END_FOR
+    Write("sum")
+END
+
+ALGORITHM sum_overlapping2_Hashtable
+VAR
+    htab:HASH_TABLE<INTEGER,INTEGER>;
+    set1: ARRAY_OF INTEGER[m];
+    set2: ARRAY_OF INTEGER[n];
+    m,n,i,j,sum,sum1,sum2,count:INTEGER;
+BEGIN
+    sum:=0
+    Write("type the length m of the set1")
+    read (m)
+    Write("type the length n of the set2")
+    read (n)
+    FOR i FROM 0 TO m-1 STEP 1  DO   
+     Write("type set1 elements"); 
+     read(set1[i]);
+    END_FOR
+    FOR j FROM 0 TO n-1 STEP 1  DO   
+     Write("type set2 elements"); 
+     read(set2[j]);
+FOR i FROM 0 TO m-1 STEP 1  DO
+    IF (htab.lookup(set1[i]=TRUE)) THEN
+        count1:=htab.get(set1[i]);
+        htab.insert(set1[i],count+1);
+    ELSE
+    htab.insert(set1[i],1);
+    END_IF
+END_FOR
+FOR j FROM 0 TO n-1 STEP 1  DO
+    IF (htab.lookup(set2[j]=TRUE)) THEN
+        count2:=htab.get(set2[j]);
+        htab.insert(set2[j],count+1);
+    ELSE
+    htab.insert(set2[j],1);
+    END_IF
+END_FOR
+FOR i FROM 0 TO m-1 STEP 1  DO
+    IF (htab.get(set1[i])<>1) THEN
+        sum1=sum1+set[i]
+    END_IF
+END_FOR
+FOR j FROM 0 TO n-1 STEP 1  DO
+    IF (htab.get(set2[j])<>1) THEN
+        sum2=sum2+set2[j]
+    END_IF
+END_FOR
+    sum:=sum+(sum1+sum2)
+    Write(sum)
+END
